@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.wrapper{
+   max-width: 1380px;
+   width: 100%;
+   margin: 0 auto;
+   padding: 0px 20px;
+}
+
+.afclr:after{
+	clear: both;
+	float: none;
+	display: block;
+	content: "";
+}
+
+.top_banner {
+    background-position: center center;
+    background-image: url('/images/school-campus.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
