@@ -4,13 +4,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use Helper;
+use Session;
+use App\Models\user;
 class AuthController extends Controller
 {
      public function Login(){
         return view('pages.auth.login');
      }
      
-     public function loginPost(){
+     public function loginPost(Request $request){
         $messages = [
             'email.required' => 'Email is required.',
             'password.required' => 'Password is required.',
@@ -21,7 +23,7 @@ class AuthController extends Controller
             'password' => 'required',
         ], $messages);
 
-        if (Auth::attempt(['mobile' => $mobile, 'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 $user = Auth::user();
                 if (strcmp($user->status,'inactive')==0 ||strcmp($user->status,'deleted')==0 ) {
                     if(strcmp($user->status,'inactive')==0){
@@ -36,7 +38,7 @@ class AuthController extends Controller
                     }
                 } else {
                     $user = User::whereId($user->id)->where('status','!=','deleted')->with('roles')->first();
-                    $role = $user->roles->first()->name ?? 'agent';
+                    $role = $user->roles->first()->name ?? 'admin';
 
                     switch ($role) {
                         case 'admin':
