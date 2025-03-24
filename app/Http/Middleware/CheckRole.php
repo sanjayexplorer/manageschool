@@ -4,25 +4,58 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CheckRole
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string  $role
-     * @return mixed
-     */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, ...$roles)
     {
-        // Check if the authenticated user has the required role
-        if (!Auth::check() || !Auth::user()->hasRole($role)) {
-            // Optionally, redirect or return an error response
-            return response()->json(['error' => 'Unauthorized'], 403);
+        Log::info('CheckRole Middleware executing...', ['roles' => $roles]);
+
+        if (!Auth::check()) {
+            return $this->unauthorizedResponse($request, 'User is not authenticated');
         }
 
-        return $next($request);
+        $user = Auth::user();
+        $userRole = $user->roles->first()?->name;
+
+        Log::info('Authenticated user role: ' . $userRole);
+
+        if (in_array($userRole, $roles)) {
+            return $next($request);
+        }
+
+        return $this->redirectToOwnDashboard($request, $userRole);
+    }
+
+    private function redirectToOwnDashboard($request, $role)
+    {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'error' => 'Unauthorized role. Expected one of allowed roles.',
+                'user_role' => $role,
+            ], 403);
+        }
+
+        switch ($role) {
+            case 'admin':
+                return redirect()->route('admin.dashboard');
+            case 'teacher':
+                return redirect()->route('teacher.dashboard');
+            case 'principal':
+                return redirect()->route('principal.dashboard');
+            default:
+                Auth::logout();
+                return redirect()->route('welcome')->with('error', 'Unauthorized role.');
+        }
+    }
+
+    private function unauthorizedResponse($request, $message)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => $message], 403);
+        }
+
+        return redirect()->route('welcome')->with('error', $message);
     }
 }

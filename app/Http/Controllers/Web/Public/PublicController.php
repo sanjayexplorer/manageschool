@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Inquiry;
 use Session;
+use Intervention\Image\Laravel\Facades\Image;
 class PublicController extends Controller
 {
 
@@ -46,5 +47,7 @@ class PublicController extends Controller
         return redirect()->route('welcome'); 
     }
     
-     
+    public function imageUpload(Request $request){
+        return response()->json(['success', true, 'error' => false,'msg'=>'image uploded successfully']);
+    }
 }

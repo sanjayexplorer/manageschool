@@ -39,14 +39,13 @@ class AuthController extends Controller
                 } else {
                     $user = User::whereId($user->id)->where('status','!=','deleted')->with('roles')->first();
                     $role = $user->roles->first()->name ?? 'admin';
-
                     switch ($role) {
                         case 'admin':
-                            return redirect()->route('/');
+                        return redirect()->route('admin.dashboard');
                         case 'principal':
-                            return redirect()->route('/');
+                            return redirect()->route('principal.dashboard'); 
                         case 'teacher':
-                             return redirect()->route('/');
+                            return redirect()->route('teacher.dashboard'); 
                         default:
                             Auth::logout();
                             return redirect()->route('login');

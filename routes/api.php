@@ -14,6 +14,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::prefix('principal')->middleware('role:principal')->group(function () {
+        
         Route::get('/dashboard', function () {
             return 'Principal dashboard';
         });

@@ -16,27 +16,28 @@
 	display: block;
 	content: "";
 }
+.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 1rem;
+}
 
 img{
     width: 100%;
     max-width: 100%;
 }
 
-
 .banner_position{
-    position: absolute;
-    top: 50%;
-    left: 0;
-    display: block;
-    width: 100%;
-    transform: translateY(-50%);
-    z-index: 2;
-    right: 0;    
+ 
 }
 
-/* .top_banner {
-    background-position: center center;
-    background-image: url('/images/school-campus.jpg');
-    background-repeat: no-repeat;
-    background-size: cover; 
-} */
+/* dynamic anchor start */
+.roleChangeAnchor {
+    display: none; /* Hide all by default */
+}
+
+.roleChangeAnchor.active {
+    display: block !important;
+}
+/* dynamic anchor end */

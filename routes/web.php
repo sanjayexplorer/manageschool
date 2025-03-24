@@ -14,48 +14,61 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Guest routes
+Route::post('/image/upload', [App\Http\Controllers\Web\Public\PublicController::class, 'imageUpload'])->name('image.upload.post');
+Route::group(['middleware' => 'guest'], function () {
 
-// Route::group(['middleware' => 'guest'], function () {
-
-    // // Fallback for guests 
-    // Route::fallback(function () { 
-    //     return redirect('/');
-    // });
+    // Fallback for guests 
+    Route::fallback(function () {
+        return redirect('/');
+    });
 
     Route::get('/', [App\Http\Controllers\Web\Public\PublicController::class, 'index'])->name('welcome');
-    Route::post('/inquiryPost', [App\Http\Controllers\Web\Public\PublicController::class, 'inquiryPost'])->name('inquiryPost');
+    Route::post('/inquiry/post', [App\Http\Controllers\Web\Public\PublicController::class, 'inquiryPost'])->name('inquiry.post');
     
-    Route::get('/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'Login']);
-    Route::post('/loginPost', [App\Http\Controllers\Web\Auth\AuthController::class, 'loginPost']);
+    Route::get('/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'Login'])->name('login');
+    Route::post('/loginPost', [App\Http\Controllers\Web\Auth\AuthController::class, 'loginPost'])->name('login.post');
 
 
-// });
+});
 
 
 // Admin routes
-// Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-//     Route::get('/', function () {
-//         return redirect('/dashboard'); 
-//     });
-//     Route::get('/dashboard', [App\Http\Controllers\Web\Admin\DashboardController::class, 'Dashboard']);
-// });
+Route::group(
+    [
+        'prefix'=>'admin','as'=>'admin.',
+            'middleware' => [
+                'auth','role:admin'
+            ],
+    ],
+ 
+    function () {
+        Route::get('/dashboard', [App\Http\Controllers\Web\Admin\DashboardController::class, 'Dashboard'])->name('dashboard');
+});
 
 
-// // Principal routes
-// Route::prefix('principal')->middleware(['auth', 'role:principal'])->group(function () {
-//     Route::get('/', function () {
-//         return redirect('/dashboard'); 
-//     });
-//     Route::get('/dashboard', [App\Http\Controllers\Web\Principal\DashboardController::class, 'Dashboard']);
-// });
+// Principal routes
+Route::group(
+    [
+        'prefix'=>'principal','as'=>'principal.',
+            'middleware' => [
+                'auth','role:principal'
+            ],
+    ],
+    function () {
+        Route::get('/dashboard', [App\Http\Controllers\Web\Principal\DashboardController::class, 'Dashboard'])->name('dashboard');
+});
 
 
-// // Teacher routes
-// Route::prefix('teacher')->middleware(['auth', 'role:teacher'])->group(function () {
-//     Route::get('/', function () {
-//         return redirect('/dashboard'); 
-//     });
-//     Route::get('/dashboard', [App\Http\Controllers\Web\Teacher\DashboardController::class, 'Dashboard']);
-// });
+// Teacher routes
+Route::group(
+    [
+        'prefix'=>'teacher','as'=>'teacher.',
+            'middleware' => [
+                'auth','role:teacher'
+            ],
+    ],
+    function () {
+        Route::get('/dashboard', [App\Http\Controllers\Web\Teacher\DashboardController::class, 'Dashboard'])->name('dashboard');
+});
 
 
