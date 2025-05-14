@@ -1,19 +1,18 @@
 
 
         {{-- Header Start --}}
-             @include('components.header')
+             @include('components.website.header')
         {{-- Header End --}}
 
         
-
         {{-- Content Start --}}
-         @include('components.home-content')
+         @include('components.website.home-content')
         {{-- Content End --}}
 
 
 
         {{-- Footer Start --}}
-        @include('components.footer')
+        @include('components.website.footer')
         {{-- Footer End --}}
 
      

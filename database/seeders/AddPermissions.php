@@ -20,6 +20,8 @@ class AddPermissions extends Seeder
         Permission::create(['name' => 'view user']);
         Permission::create(['name' => 'delete user']);
 
+
+        
         $admin = Role::whereId(1)->first();
         $admin->givePermissionTo(['create user', 'edit user', 'view user', 'delete user']);
 

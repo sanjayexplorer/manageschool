@@ -24,6 +24,6 @@ class Inquiry extends Model
     protected $fillable = [
         'name',
         'email',
-        'query',
+        'message',
     ];
 }

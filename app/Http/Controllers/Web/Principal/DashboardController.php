@@ -6,7 +6,7 @@ use Auth;
 use Helper;
 class DashboardController extends Controller
 {
-     public function Dashboard(){
+     public function index(){
         return view('pages.dashboards.principal.dashboard');
      }
      

@@ -16,21 +16,26 @@
     <div class="min-h-screen bg-gray-100 flex items-center justify-center">
         <div class="w-full max-w-[460px] p-5">
            <div class="bg-white rounded-2xl shadow-lg p-5">
-            <h2 class="text-2xl font-bold my-3 text-center text-gray-800">Login</h2>
+            <div class="mb-6 text-center">
+                <div class="max-w-[170px] mx-auto my-0">
+                    <img src="{{asset('images/site-logo.png')}}" alt="Site Logo" class="">
+                </div>
+            </div>
             <form action="{{route('login.post')}}" method="POST">
                 @csrf
                 <div class="mt-6">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email<span class="text-[#FF0000]">*</span></label>
+                    <label for="email" class="input_label capitalize text-[#222937]">Email<span class="text-[#FF0000]">*</span></label>
                     <input type="text" name="email" id="email" value="{{ old('email') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                           class="input_tags w-[100%] py-2 px-2 outline-none border-gray-300 border-[1px] rounded-[4px] focus:border-[#222937] required_fields">
                 </div>
                 <div class="mt-6">
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password<span class="text-[#FF0000]">*</span></label>
+                    <label for="password" class="input_label capitalize text-[#222937]">Password<span class="text-[#FF0000]">*</span></label>
                     <input type="password" name="password" id="password"
-       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+       class="input_tags w-[100%] py-2 px-2 outline-none border-gray-300 border-[1px] rounded-[4px] focus:border-[#222937] required_fields">
 
                 </div>
-                <div class="mt-6">
+                <a href="{{ route('google.redirect') }}" class="btn btn-primary"> Login with Google </a>
+                <div class="input_tt w-full mt-6 mx-auto">
                     <input type="submit" value="Login" class="w-full bg-[#A73335] text-white py-2 px-4 rounded border border-transparent hover:border-[#222937] transition-all duration-500 ease-in-out outline-none cursor-pointer"/>
                 </div>
             </form>
