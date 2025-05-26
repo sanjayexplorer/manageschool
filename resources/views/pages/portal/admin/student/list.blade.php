@@ -49,6 +49,45 @@
                 </table>
             </div>
         </div>
+        
+        {{-- testing  --}}
+          <div>
+                @php
+                  for ($i=1; $i<=5; $i++) { 
+                    for ($j=5; $j>=$i; $j--) { 
+                       echo $j;
+                    }
+                    for($k=1; $k<=$i; $k++){
+                        echo "*";
+                    }
+                    echo "<br>";
+                  }
+                  echo "<br>";
+
+                  $arr = [1,3,4,6,55,2];
+
+                  $size = count($arr);
+               
+                  for($i= $size-1; $i>=0; $i--){
+                      echo $arr[$i]."<br>";
+                  }
+
+                  echo "<br>";
+                  
+                  $num = 1234;
+                  $sum = 0;
+                  
+
+                  foreach (str_split($num) as $digit) {
+               
+                    $sum+= $digit;
+                  }
+                  echo 'sum '.$sum."<br>";
+                  
+
+                @endphp
+          </div>
+        {{-- testing  --}}
     </div>
     @push('scripts')
         <script>

@@ -246,7 +246,9 @@
 
             let attendanceData = {};
 
-            $('.attendance_radio').on('change', function () {
+
+            
+            $('body').on('change','.attendance_radio', function () {
                 let studentId = $(this).data('student-id');
                 let status = $(this).val();
                 attendanceData[studentId] = status;

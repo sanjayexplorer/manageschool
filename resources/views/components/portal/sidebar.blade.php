@@ -5,6 +5,14 @@
     $controllerAction = class_basename($routeArray['controller']);
     [$controller, $action] = explode('@', $controllerAction);
 @endphp
+@push('styles')
+    <style>
+       .sidebar-scroll::-webkit-scrollbar { width: 5px; } 
+        .sidebar-scroll::-webkit-scrollbar-track { box-shadow: inset 0 0 5px #ffffff; border-radius: 10px; } 
+        .sidebar-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; } 
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover { background: #ccc; }
+    </style>
+@endpush
 <div class="relative h-screen bg-white flex flex-col border-r">
     <!-- Close Icon -->
     <button class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition duration-300 lg:hidden"
@@ -21,7 +29,8 @@
     </div>
 
     <!-- Navigation Links -->
-    <nav class="flex-1 mt-4">
+    <nav class="flex-1 mt-4 overflow-y-scroll sidebar-scroll">
+      
         <ul class="space-y-2">
             <li>
                 <a href="{{route('admin.dashboard')}}"

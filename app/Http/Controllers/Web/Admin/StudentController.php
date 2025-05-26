@@ -8,6 +8,7 @@ use App\Models\ClassModel;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Carbon;
 class StudentController extends Controller
 {
     // public function index(Request $request)
@@ -253,13 +254,74 @@ class StudentController extends Controller
 
     public function handleBulkUpload(Request $request)
     {
-        $handle = fopen($request->admissions, "r");
 
-        while (($row = fgetcsv($handle)) !== FALSE) {
-            dd($row);
+        $request->validate([
+            'admissions' => 'required|file|mimes:csv,txt',
+        ]);
+
+        $file = $request->file('admissions');
+        $path = $file->getRealPath();
+       
+
+        if (($handle = fopen($path, 'r')) !== false) {
+            $isHeader = true;
+
+            while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+
+                if ($isHeader) {
+                     dd(vars: $isHeader);
+                    $isHeader = false;
+                    continue;
+                }
+
+                if (count($row) < 13) {
+                    continue;
+                }
+
+
+                dd(\Carbon\Carbon::parse($row[4])->format('Y-m-d'));
+
+                $classId = $request->class_id;
+
+                $studentCount = Student::where('class_id', $classId)->count();
+
+                $newRollNumber = $studentCount + 1;
+
+                $studentsPerSection = 50;
+                $sectionIndex = floor($studentCount / $studentsPerSection);
+                $sectionLetter = chr(65 + $sectionIndex);
+
+
+                $section = Section::firstOrCreate([
+                    'class_id' => $classId,
+                    'name' => $sectionLetter,
+                ]);
+                
+
+                Student::create([
+                    'first_name' => $row[0],
+                    'last_name' => $row[1],
+                    'email' => $row[2],
+                    'phone' => $row[3],
+                    'dob' => \Carbon\Carbon::parse($row[4])->format('Y-m-d'),
+                    'gender' => $row[5],
+                    'address_line_1' => $row[6],
+                    'class_id' => $classId,
+                    'section_id' => $section->id,
+                    'roll_number' => $newRollNumber,
+                    'admission_date' => \Carbon\Carbon::parse($row[7])->format('Y-m-d'),
+                    'guardian_name' => $row[8],
+                    'guardian_relation' => $row[9],
+                    'guardian_email' => $row[10],
+                    'guardian_phone' => $row[11],
+                    'status' => $row[12],
+                ]);
+                dd($row[0]);
+            }
+
+            fclose($handle);
         }
 
-        fclose($handle);
     }
 }
 
