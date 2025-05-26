@@ -2,7 +2,6 @@
     @if(Session::has('error'))
         <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('error') }}</p>
     @endif
- 
     <div class="top_banner">
         <div class="bg_image relative">
             <img src="{{asset('images/school-campus.jpg')}}" alt="School Campus">
@@ -278,7 +277,5 @@ document.getElementById('endDate').addEventListener('change', function () {
                 }
             });
         }
-
-
     </script>
 </section>

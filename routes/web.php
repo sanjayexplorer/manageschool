@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Auth;
 Route::post('/image/upload', [App\Http\Controllers\Web\Public\PublicController::class, 'imageUpload'])->name('image.upload.post');
 Route::group(['middleware' => 'guest'], function () {
 
+    Route::get('/test', function () {
+        return view('test');
+    });
+
     Route::fallback(function () {
         return redirect('/');
     });
@@ -61,6 +65,15 @@ Route::group(
         Route::post('/students/{id}/update', [App\Http\Controllers\Web\Admin\StudentController::class, 'update'])->name('students.update');
         Route::post('/students/{id}/delete', [App\Http\Controllers\Web\Admin\StudentController::class, 'destroy'])->name('students.destroy');
         Route::get('/students/data', [App\Http\Controllers\Web\Admin\StudentController::class, 'getStudentsData'])->name('students.data');
+
+
+        Route::get('/students/bulk-upload', [App\Http\Controllers\Web\Admin\StudentController::class, 'bulkUpload'])
+            ->name('students.bulk-upload');
+
+
+        Route::post('/students/bulk-upload', [App\Http\Controllers\Web\Admin\StudentController::class, 'handleBulkUpload'])
+            ->name('students.bulk-upload.store');
+
 
         // Attendance Routes
         Route::get('/attendance', [App\Http\Controllers\Web\Admin\AttendanceController::class, 'index'])->name('attendance.index');

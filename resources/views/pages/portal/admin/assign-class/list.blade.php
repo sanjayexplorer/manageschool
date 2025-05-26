@@ -10,6 +10,7 @@
         .class-card:hover {
             transform: scale(1.03);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #E3F2FD;
         }
 
         .scrollbar-thin::-webkit-scrollbar {
@@ -17,43 +18,45 @@
         }
 
         .scrollbar-thin::-webkit-scrollbar-thumb {
-            background-color: #60a5fa;
+            background-color: #fff6;
             border-radius: 4px;
         }
     </style>
 @endpush
 
 @section('content')
-    <div class="w-full h-screen bg-gray-800 p-4 lg:p-8">
-        <div class="flex justify-between items-center pb-5">
-            <div class="list-header">
-            <h2 class="font-semibold text-2xl text-white">Assign Class</h2>
+    <div class="w-full h-screen">
+        <div class="bg-gradient-to-r from-[#A73335] to-[#fff]">
+            <div class="flex justify-between items-center py-4 px-4">
+                <div class="list-header">
+                    <h2 class="font-semibold text-2xl text-white">Assign Class</h2>
+                </div>
+                <div class="list-header">
+                    <button class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 6h16M4 12h8m-8 6h16"/>
+                        </svg>
+                        Auto Arrange
+                    </button>
+                </div>
             </div>
-            <div class="list-header">
-            <button class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M4 6h16M4 12h8m-8 6h16"/>
-                </svg>
-                Auto Arrange
-            </button>
-        </div>
         </div>
 
-        <div class="w-full rounded-md bg-white shadow-md overflow-hidden">
+        <div class="w-full h-screen bg-slate-800 shadow-md overflow-hidden">
             <div class="flex gap-6 overflow-x-auto overflow-y-hidden py-6 px-4 scrollbar-thin">
 
                 @foreach ($teachers as $teacher)
-                    <div class="min-w-[280px] bg-blue-50 rounded-lg shadow-lg border border-blue-200"
+                    <div class="min-w-[280px] bg-white rounded-lg shadow-lg border border-slate-300"
                          id="teacher-{{ $teacher->id }}">
-                        <h3 class="font-bold text-blue-800 text-lg mb-4 py-2 px-4 border-b border-blue-300">
+                        <h3 class="font-bold text-slate-800 text-lg mb-4 py-2 px-4 border-b border-slate-300">
                             {{ $teacher->first_name }} {{ $teacher->last_name }}
                         </h3>
                         <div class="class-list p-4 min-h-[150px] space-y-3"
                              data-teacher="{{ $teacher->id }}">
                             @foreach ($classes->where('teacher_id', $teacher->id) as $class)
-                                <div class="class-card bg-white p-4 rounded shadow-md cursor-move hover:bg-blue-100 border border-gray-200"
+                                <div class="class-card bg-white p-4 rounded-xl shadow-md cursor-move hover:bg-indigo-100 border border-slate-300"
                                      data-class-id="{{ $class->id }}">
                                     {{ $class->name }}
                                 </div>
@@ -62,12 +65,11 @@
                     </div>
                 @endforeach
 
-          
-                <div class="min-w-[280px] bg-pink-50 rounded-lg shadow-lg border border-pink-200">
-                    <h3 class="font-bold text-pink-800 text-lg mb-4 py-2 px-4 border-b border-pink-300">Unassigned</h3>
+                <div class="min-w-[280px] bg-rose-50 rounded-lg shadow-lg border border-rose-200">
+                    <h3 class="font-bold text-rose-700 text-lg mb-4 py-2 px-4 border-b border-rose-300">Unassigned</h3>
                     <div class="class-list min-h-[150px] p-4 space-y-3" data-teacher="">
                         @foreach ($classes->whereNull('teacher_id') as $class)
-                            <div class="class-card bg-white p-4 rounded shadow-md cursor-move hover:bg-pink-100 border border-gray-200"
+                            <div class="class-card bg-white p-4 rounded-xl shadow-md cursor-move hover:bg-rose-100 border border-slate-300"
                                  data-class-id="{{ $class->id }}">
                                 {{ $class->name }}
                             </div>

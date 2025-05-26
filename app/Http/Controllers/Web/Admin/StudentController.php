@@ -37,7 +37,6 @@ class StudentController extends Controller
     //     ]);
     // }
 
-
     public function index(Request $request)
     {
         $notifications = DB::table('notifications')->orderBy('created_at', 'desc')->get();
@@ -110,7 +109,7 @@ class StudentController extends Controller
         $sectionIndex = floor($studentCount / $studentsPerSection);
         $sectionLetter = chr(65 + $sectionIndex);
 
-     
+
         $section = Section::firstOrCreate([
             'class_id' => $classId,
             'name' => $sectionLetter,
@@ -244,4 +243,23 @@ class StudentController extends Controller
         ]);
     }
 
+
+    public function bulkUpload()
+    {
+        $notifications = DB::table('notifications')->orderBy('created_at', 'desc')->get();
+        return view('pages.portal.admin.student.bulk-upload', compact('notifications'));
+    }
+
+
+    public function handleBulkUpload(Request $request)
+    {
+        $handle = fopen($request->admissions, "r");
+
+        while (($row = fgetcsv($handle)) !== FALSE) {
+            dd($row);
+        }
+
+        fclose($handle);
+    }
 }
+

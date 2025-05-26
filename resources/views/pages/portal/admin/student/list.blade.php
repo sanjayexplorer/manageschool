@@ -21,8 +21,13 @@
                     <h2 class="font-normal text-2xl">Student List</h2>
                 </div>
             </div>
-            <div class="list-header">
-                <a href="{{route('admin.students.create')}}"
+            <div class="list-header flex items-center gap-2">
+                <a href="{{route('admin.students.bulk-upload')}}"
+                    class="rounded-md flex items-center no-underline bg-gray-700 text-white text-sm px-3 py-2 uppercase">Add
+                    Add Bulk Upload
+                </a>
+
+                     <a href="{{route('admin.students.create')}}"
                     class="rounded-md flex items-center no-underline bg-gray-700 text-white text-sm px-3 py-2 uppercase">Add
                     New Student</a>
             </div>
