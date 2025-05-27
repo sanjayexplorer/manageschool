@@ -7,7 +7,7 @@
 @endphp
 @push('styles')
     <style>
-       .sidebar-scroll::-webkit-scrollbar { width: 5px; } 
+        .sidebar-scroll::-webkit-scrollbar { width: 5px; } 
         .sidebar-scroll::-webkit-scrollbar-track { box-shadow: inset 0 0 5px #ffffff; border-radius: 10px; } 
         .sidebar-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; } 
         .sidebar-scroll::-webkit-scrollbar-thumb:hover { background: #ccc; }
