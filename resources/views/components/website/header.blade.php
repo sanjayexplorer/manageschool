@@ -14,7 +14,7 @@
     <!--js --> 
     <script src="{{asset('js/jquery-3.7.1.js')}}"></script>
     <script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
-
+    @stack('styles')
 </head>
 
 <body>

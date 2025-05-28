@@ -100,24 +100,8 @@
             </div>
         </div>
     </div>
-
+    @push('scripts')
     <script>
-
-document.getElementById('endDate').addEventListener('change', function () {
-    const start = new Date(document.getElementById('startDate').value);
-    const end = new Date(this.value);
-    const diffDays = (end - start) / (1000 * 60 * 60 * 24);
-
-    if (diffDays > 0) {
-        const dailyRate = 50; // Example
-        const totalPrice = dailyRate * diffDays;
-        console.log(`Days: ${diffDays}, Total: $${totalPrice}`);
-    } else {
-        alert("End date must be after start date.");
-    }
-});
-
-
         function validate_form() {
             let hasErrors = false;
             let firstErrorElement = null;
@@ -278,4 +262,5 @@ document.getElementById('endDate').addEventListener('change', function () {
             });
         }
     </script>
+     @endpush
 </section>

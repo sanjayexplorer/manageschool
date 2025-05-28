@@ -323,5 +323,35 @@ class StudentController extends Controller
         }
 
     }
+
+
+
+//     public function importRiskCategories(Request $request)
+// {
+//     $request->validate([
+//         'file' => 'required|mimes:xlsx,csv',
+//     ]);
+
+//     $filePath = $request->file('file')->store('temp');
+//     $file = fopen(storage_path("app/{$filePath}"), "r");
+//     $rowIndex = 0;
+    
+//     while (($row = fgetcsv($file)) !== false) {
+//         $rowIndex++;
+//         if ($rowIndex > 2) {
+//                 States::create([
+//                     'state' => $row[0],
+//                     'cities' => $row[1],
+//                     'risk_1' => json_encode(array('wind' => $row[2], 'ice' => $row[3], 'snow' => $row[4])),
+//                     'risk_2' => json_encode(array('wind' => $row[5], 'ice' => $row[6], 'snow' => $row[7])),
+//                     'risk_3' => json_encode(array('wind' => $row[8], 'ice' => $row[9], 'snow' => $row[10])),
+//                     'risk_4' => json_encode(array('wind' => $row[11], 'ice' => $row[12], 'snow' => $row[13])),
+//                     'building_code' => $row[14],
+//                     'ASCE_code' => $row[15]
+//                 ]);
+//             }
+//     }
+// }
+
 }
 
